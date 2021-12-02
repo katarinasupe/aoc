@@ -3,6 +3,8 @@ increased = 0
 with open(file) as f:
     lines = f.readlines()
 lines = [int(line) for line in lines]
+
+# ---PART ONE---
 previous = lines[0]
 for i in range(1, len(lines)):
     if lines[i] > previous:
@@ -10,6 +12,7 @@ for i in range(1, len(lines)):
     previous = lines[i]
 print(increased)
 
+# ---PART TWO---
 previous_sum = lines[0] + lines[1] + lines[2]
 increased_three = 0
 for j in range(1, len(lines) - 2):

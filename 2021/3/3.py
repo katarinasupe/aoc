@@ -1,6 +1,3 @@
-import re
-file = "3.txt"
-
 
 def to_decimal(bin):
     return sum([j*(2**i)
@@ -10,7 +7,8 @@ def to_decimal(bin):
 def calc_power_consumption(input):
     column = list()
     gamma_rate = list()
-    for col_ctr in range(0, 12):
+
+    for col_ctr in range(0, len(input[0])-1):
         for line in input:
             column.append(int(line[col_ctr]))
         if sum(column) >= len(column)/2:
@@ -24,33 +22,16 @@ def calc_power_consumption(input):
     print(to_decimal(gamma_rate) * to_decimal(epsilon_rate))
 
 
-def oxygen_gen_rating(input):
+def life_support(input, lcv, mcv):
     column = list()
-    indices = [i for i in range(1000)]
-    for col_ctr in range(0, 12):
-        for line in input:
-            column.append(int(line[col_ctr]))
-        if sum(column) >= len(column)/2:
-            indices = [i for i, x in enumerate(input) if x[col_ctr] == "1"]
-        else:
-            indices = [i for i, x in enumerate(input) if x[col_ctr] == "0"]
-        if len(indices) == 1:
-            ogr = list(map(int, (input[indices[0]].strip())))
-            return ogr
-        input = [input[i] for i in indices]
-        column.clear()
-
-
-def co2_scrubber_rating(input):
-    column = list()
-    indices = [i for i in range(1000)]
-    for col_ctr in range(0, 12):
+    indices = [i for i in range(len(input))]
+    for col_ctr in range(0, len(input[0])):
         for line in input:
             column.append(int(line[col_ctr]))
         if sum(column) < len(column)/2:
-            indices = [i for i, x in enumerate(input) if x[col_ctr] == "1"]
+            indices = [i for i, x in enumerate(input) if x[col_ctr] == lcv]
         else:
-            indices = [i for i, x in enumerate(input) if x[col_ctr] == "0"]
+            indices = [i for i, x in enumerate(input) if x[col_ctr] == mcv]
         if len(indices) == 1:
             ogr = list(map(int, (input[indices[0]].strip())))
             return ogr
@@ -59,11 +40,12 @@ def co2_scrubber_rating(input):
 
 
 def main():
+    file = "3.txt"
     with open(file) as f:
         input = f.readlines()
     calc_power_consumption(input)
-    print(to_decimal(oxygen_gen_rating(input)) *
-          to_decimal(co2_scrubber_rating(input)))
+    print(to_decimal(life_support(input, "0", "1"))
+          * to_decimal(life_support(input, "1", "0")))
 
 
 if __name__ == "__main__":

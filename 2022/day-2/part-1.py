@@ -33,7 +33,7 @@ class Outcome(Enum):
     CX = 7
 
 
-input = open("day-2/input.txt", "r")
+input = open("2022/day-2/input.txt", "r")
 lines = input.readlines()
 
 sum = 0

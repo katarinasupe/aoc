@@ -1,4 +1,4 @@
-input = open("day-1/input.txt", "r")
+input = open("2022/day-1/input.txt", "r")
 lines = input.readlines()
 
 max = 0

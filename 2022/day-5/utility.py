@@ -1,5 +1,6 @@
 import re
 from itertools import groupby
+import parsing
 
 
 def get_moves(path: str):
@@ -43,3 +44,23 @@ def get_reversed_stacks(path: str):
                 new_stack.append(my_stacks[j][i])
         reversed_stacks.append(new_stack)
     return reversed_stacks
+
+
+def parse_input(path, path_1, path_2):
+
+    with open(path) as f:
+        lines = f.read()
+
+    tests = lines.split("\n\n")
+
+    with open(path_1, "w") as f:
+        f.writelines(tests[0])
+
+    with open(path_1, "r+") as fp:
+        lines = fp.readlines()
+        fp.seek(0)
+        fp.truncate()
+        fp.writelines(lines[:-1])
+
+    with open(path_2, "w") as f:
+        f.write(tests[1])
